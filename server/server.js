@@ -101,6 +101,16 @@ app.use(
   express.static(path.join(__dirname, "uploads"))
 );
 
+// Health check endpoint for monitoring and Docker
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || "development",
+  });
+});
+
 app.get("/", (req, res) => {
   res.send("API is running...");
 });

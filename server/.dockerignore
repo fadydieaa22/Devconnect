@@ -1,0 +1,13 @@
+node_modules
+.env
+.env.local
+.env.production
+npm-debug.log
+.DS_Store
+.git
+.gitignore
+README.md
+uploads/*.png
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.gif
