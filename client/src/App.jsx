@@ -22,7 +22,7 @@ import EditProject from "./pages/EditProject";
 import Feed from "./pages/Feed";
 import Messages from "./pages/Messages";
 import Analytics from "./pages/Analytics";
-import SavedPosts from "./Pages/SavedPosts";
+import SavedPosts from "./pages/SavedPosts";
 import MyProfile from "./pages/MyProfile";
 import FollowRequests from "./pages/FollowRequests";
 import EnhancedNavBar from "./Components/EnhancedNavBar";
