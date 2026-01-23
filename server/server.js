@@ -116,6 +116,15 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+// Debug endpoint to check env vars
+app.get("/api/debug", (req, res) => {
+  res.status(200).json({
+    CLIENT_URL: process.env.CLIENT_URL,
+    NODE_ENV: process.env.NODE_ENV,
+    PORT: process.env.PORT,
+  });
+});
+
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
