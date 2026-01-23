@@ -16,7 +16,9 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5174",
+    origin: process.env.CLIENT_URL
+      ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+      : ["http://localhost:5173", "http://localhost:5174"],
     credentials: true,
   },
 });
@@ -43,7 +45,9 @@ app.use(compression());
 // CORS - Must be after helmet but before routes
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5174",
+    origin: process.env.CLIENT_URL
+      ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+      : ["http://localhost:5173", "http://localhost:5174"],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -62,6 +66,7 @@ const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5, // Strict on auth endpoints
   message: "Too many login attempts, please try again later.",
+  skip: (req) => process.env.NODE_ENV !== "production", // Disable in development
 });
 
 app.use("/api/", generalLimiter);

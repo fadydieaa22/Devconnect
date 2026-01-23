@@ -39,11 +39,9 @@ function AppContent() {
           const { data } = await api.get("/user/me");
           setUser(data);
         } catch (error) {
-          console.error("Failed to load user:", error);
-          // Token might be invalid, logout
-          if (error.response?.status === 401) {
-            localStorage.removeItem("token");
-            useAuthStore.getState().logout();
+          // 401 handled by axios interceptor, don't log
+          if (error.response?.status !== 401) {
+            console.error("Failed to load user:", error);
           }
         }
       }
