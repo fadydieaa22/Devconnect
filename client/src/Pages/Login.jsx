@@ -23,16 +23,14 @@ export default function Login() {
     setError("");
     setIsLoading(true);
     try {
-      const API_URL =
-        import.meta.env.VITE_API_URL || "http://localhost:5000/api";
-      const res = await axios.post(`${API_URL}/auth/login`, formData);
+      const res = await api.post("/auth/login", formData);
 
       // Set token in store and localStorage
       setToken(res.data.token);
       localStorage.setItem("token", res.data.token);
 
       // Fetch user data
-      const userRes = await axios.get(`${API_URL}/user/me`, {
+      const userRes = await api.get("/user/me", {
         headers: { Authorization: `Bearer ${res.data.token}` },
       });
 

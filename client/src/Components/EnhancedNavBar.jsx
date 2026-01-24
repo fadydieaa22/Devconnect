@@ -32,7 +32,7 @@ const EnhancedNavBar = () => {
     
     if (token) {
       // Fetch user data
-      fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/api/user/me`, {
+      fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/user/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
       .then(res => res.json())

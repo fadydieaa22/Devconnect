@@ -20,13 +20,13 @@ const SearchBar = ({ placeholder = "Search projects or users..." }) => {
       const [projectsRes, usersRes] = await Promise.all([
         fetch(
           `${
-            import.meta.env.VITE_API_URL || "http://localhost:5000"
-          }/api/projects/search?q=${encodeURIComponent(searchQuery)}`
+            import.meta.env.VITE_API_URL || "http://localhost:5000/api"
+          }/projects/search?q=${encodeURIComponent(searchQuery)}`
         ),
         fetch(
           `${
-            import.meta.env.VITE_API_URL || "http://localhost:5000"
-          }/api/user/search?q=${encodeURIComponent(searchQuery)}`
+            import.meta.env.VITE_API_URL || "http://localhost:5000/api"
+          }/user/search?q=${encodeURIComponent(searchQuery)}`
         ),
       ]);
 

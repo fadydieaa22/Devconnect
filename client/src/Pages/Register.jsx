@@ -1,10 +1,10 @@
 import { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FiUser, FiAtSign, FiMail, FiLock, FiArrowLeft } from "react-icons/fi";
 import { Button, Input, Card } from "../Components/ui";
 import PageTransition from "../Components/ui/PageTransition";
+import api from "../api/axios";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -29,9 +29,7 @@ export default function Register() {
         ...formData,
         username: formData.username.toLowerCase().trim(),
       };
-      const API_URL =
-        import.meta.env.VITE_API_URL || "http://localhost:5000/api";
-      const res = await axios.post(`${API_URL}/auth/register`, payload);
+      const res = await api.post("/auth/register", payload);
       localStorage.setItem("token", res.data.token);
       navigate("/dashboard");
     } catch (err) {
