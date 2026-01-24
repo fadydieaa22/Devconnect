@@ -43,7 +43,12 @@ app.use(
 app.use(compression());
 
 // CORS - Must be after helmet but before routes
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+);
 
 // Rate limiting - More lenient for development, strict on auth
 const generalLimiter = rateLimit({
