@@ -18,7 +18,7 @@ const io = new Server(server, {
   cors: {
     origin: process.env.CLIENT_URL
       ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
-      : ["http://localhost:5173", "http://localhost:5174"],
+      : ["https://devconnect-xi-woad.vercel.app/"],
     credentials: true,
   },
 });
