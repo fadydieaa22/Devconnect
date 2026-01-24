@@ -43,16 +43,7 @@ app.use(
 app.use(compression());
 
 // CORS - Must be after helmet but before routes
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL
-      ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
-      : ["https://devconnect-xi-woad.vercel.app/"],
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  }),
-);
+app.use(cors());
 
 // Rate limiting - More lenient for development, strict on auth
 const generalLimiter = rateLimit({
