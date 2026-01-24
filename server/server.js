@@ -50,6 +50,10 @@ app.use(
   })
 );
 
+// Body parser - Must come before rate limiters and routes
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Rate limiting - More lenient for development, strict on auth
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -60,18 +64,14 @@ const generalLimiter = rateLimit({
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 5, // Strict on auth endpoints
+  max: 100, // Less strict - was too low at 5
   message: "Too many login attempts, please try again later.",
   skip: (req) => process.env.NODE_ENV !== "production", // Disable in development
 });
 
+// Apply rate limiters
 app.use("/api/", generalLimiter);
-app.use("/api/auth/login", authLimiter);
-app.use("/api/auth/register", authLimiter);
-
-// Body parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use("/api/auth/", authLimiter);
 
 // Setup Socket.io
 setupSocket(io);
